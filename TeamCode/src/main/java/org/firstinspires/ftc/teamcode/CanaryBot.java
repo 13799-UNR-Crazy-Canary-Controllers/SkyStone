@@ -57,7 +57,9 @@ public class CanaryBot
     public DcMotor frontRightDrive = null;
     public DcMotor backLeftDrive = null;
     public DcMotor backRightDrive = null;
-
+    public DcMotor arm = null;
+    public Servo leftServo = null;
+    public Servo rightServo = null;
 //    public DcMotor  leftArm     = null;
 //    public Servo    leftClaw    = null;
 //    public Servo    rightClaw   = null;
@@ -71,7 +73,7 @@ public class CanaryBot
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwarePushbot(){
+    public CanaryBot(){
 
     }
 
@@ -85,16 +87,24 @@ public class CanaryBot
         frontRightDrive = hwMap.get(DcMotor.class,"FR");
         backLeftDrive = hwMap.get(DcMotor.class,"BL");
         backRightDrive = hwMap.get(DcMotor.class,"BR");
-//
+        arm = hwMap.get(DcMotor.class,"arm");
+        leftServo = hwMap.get(Servo.class,"LeftGripper");
+        rightServo = hwMap.get(Servo.class,"rightGripper");
+
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        arm.setDirection(DcMotor.Direction.REVERSE);
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
+        arm.setPower(0);
+
+        leftServo.setPosition(0.1);
+        rightServo.setPosition(0.1);
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
 //        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

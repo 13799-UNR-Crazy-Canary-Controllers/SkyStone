@@ -31,8 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -55,17 +53,8 @@ public class UNR_CCC_Teleop extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-//    private DcMotor leftDrive = null;
-//    private DcMotor rightDrive = null;
-    private DcMotor frontLeftDrive = null;
-    private DcMotor frontRightDrive = null;
-    private DcMotor backLeftDrive = null;
-    private DcMotor backRightDrive = null;
 
-    private DcMotor arm = null;
-
-    private Servo leftServo = null;
-    private Servo rightServo = null;
+    private CanaryBot canarybotto = new CanaryBot();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -74,33 +63,7 @@ public class UNR_CCC_Teleop extends OpMode
     public void init() {
         telemetry.addData("Status", "Initialized");
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-//        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-//        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
-        frontLeftDrive = hardwareMap.get(DcMotor.class,"FL");
-        frontRightDrive = hardwareMap.get(DcMotor.class,"FR");
-        backLeftDrive = hardwareMap.get(DcMotor.class,"BL");
-        backRightDrive = hardwareMap.get(DcMotor.class,"BR");
-
-        arm = hardwareMap.get(DcMotor.class, "arm");
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-//        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-//        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        arm.setDirection(DcMotor.Direction.REVERSE);
-        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // Servo
-        leftServo = hardwareMap.get(Servo.class, "LeftGripper");
-        rightServo = hardwareMap.get(Servo.class, "rightGripper");
+        canarybotto.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -174,23 +137,23 @@ public class UNR_CCC_Teleop extends OpMode
         // Send calculated power to wheels
 //        leftDrive.setPower(leftPower);
 //        rightDrive.setPower(rightPower);
-        frontLeftDrive.setPower(frontLeftPower);
-        frontRightDrive.setPower(frontRightPower);
-        backLeftDrive.setPower(backLeftPower);
-        backRightDrive.setPower(backRightPower);
+        canarybotto.frontLeftDrive.setPower(frontLeftPower);
+        canarybotto.frontRightDrive.setPower(frontRightPower);
+        canarybotto.backLeftDrive.setPower(backLeftPower);
+        canarybotto.backRightDrive.setPower(backRightPower);
 
-        arm.setPower(armPower);
+        canarybotto.arm.setPower(armPower);
 
         // Servo
         if(gamepad2.left_bumper){
 
-            leftServo.setPosition(0.35);
-            rightServo.setPosition(0.50);
+            canarybotto.leftServo.setPosition(0.35);
+            canarybotto.rightServo.setPosition(0.50);
 
         }
         else{
-            leftServo.setPosition(0.1);
-            rightServo.setPosition(0.75);
+            canarybotto.leftServo.setPosition(0.1);
+            canarybotto.rightServo.setPosition(0.75);
 
         }
 
