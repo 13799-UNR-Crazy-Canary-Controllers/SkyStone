@@ -89,60 +89,18 @@ public class UNR_CCC_Teleop extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-//        double leftPower;
-//        double rightPower;
-        double frontLeftPower;
-        double frontRightPower;
-        double backLeftPower;
-        double backRightPower;
 
         double armPower;
         double drive;
         double strafe;
         double rotate;
 
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-//        double drive = -gamepad1.left_stick_y;
-//        double turn  =  gamepad1.right_stick_x;
-//        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-//        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-//        // Tank Mode uses one stick to control each wheel.
-//        // - This requires no math, but it is hard to drive forward slowly and keep straight.
-//         leftPower  = -gamepad1.left_stick_y/2.0 ;
-//         rightPower = -gamepad1.right_stick_y/2.0 ;
-
-
-//         // Slow Mode
-//        if(gamepad1.left_bumper){
-//            leftPower  = leftPower/2.0 ;
-//            rightPower = rightPower/2.0 ;
-//        }
-
         drive = gamepad1.left_stick_y;
         strafe = gamepad1.left_stick_x;
         rotate = gamepad1.right_stick_x;
         armPower = -gamepad2.right_stick_y;
 
-//      TODO: TO MOVE THE MECHANUM WHEEL CODE INTO THE CANARYBOT CLASS
-
-        frontLeftPower = drive - strafe - rotate;
-        frontRightPower = drive + strafe + rotate;
-        backLeftPower = drive + strafe - rotate;
-        backRightPower = drive - strafe + rotate;
-
-        // Send calculated power to wheels
-//        leftDrive.setPower(leftPower);
-//        rightDrive.setPower(rightPower);
-        canarybotto.frontLeftDrive.setPower(frontLeftPower);
-        canarybotto.frontRightDrive.setPower(frontRightPower);
-        canarybotto.backLeftDrive.setPower(backLeftPower);
-        canarybotto.backRightDrive.setPower(backRightPower);
+        canarybotto.updateMechanumWheels(drive,strafe,rotate);
 
         canarybotto.arm.setPower(armPower);
 

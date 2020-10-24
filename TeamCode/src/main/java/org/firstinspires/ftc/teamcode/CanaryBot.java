@@ -117,6 +117,23 @@ public class CanaryBot
 //        leftClaw.setPosition(MID_SERVO);
 //        rightClaw.setPosition(MID_SERVO);
     }
+
+    public void updateMechanumWheels(
+            double drive, double strafe, double rotate
+    ){
+
+        double frontLeftPower = drive - strafe - rotate;
+        double frontRightPower = drive + strafe + rotate;
+        double backLeftPower = drive + strafe - rotate;
+        double backRightPower = drive - strafe + rotate;
+
+        frontLeftDrive.setPower(frontLeftPower);
+        frontRightDrive.setPower(frontRightPower);
+        backLeftDrive.setPower(backLeftPower);
+        backRightDrive.setPower(backRightPower);
+
+    }
+
 }
 
 
