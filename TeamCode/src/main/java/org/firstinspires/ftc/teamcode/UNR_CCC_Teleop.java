@@ -129,6 +129,8 @@ public class UNR_CCC_Teleop extends OpMode
         rotate = gamepad1.right_stick_x;
         armPower = -gamepad2.right_stick_y;
 
+//      TODO: TO MOVE THE MECHANUM WHEEL CODE INTO THE CANARYBOT CLASS
+
         frontLeftPower = drive - strafe - rotate;
         frontRightPower = drive + strafe + rotate;
         backLeftPower = drive + strafe - rotate;
@@ -154,6 +156,31 @@ public class UNR_CCC_Teleop extends OpMode
         else{
             canarybotto.leftServo.setPosition(0.1);
             canarybotto.rightServo.setPosition(0.75);
+
+        }
+
+        // Launcher
+        if(gamepad2.a) {
+
+            //something
+            //LAUNCH!!!!!!!?!?!?!?!
+
+        }
+        else{
+
+            //not launch
+
+        }
+
+        if(gamepad2.x){
+
+            //collect
+            //toggle
+
+        }
+        if(gamepad2.b){
+
+            //stop collecting
 
         }
 
